@@ -1,0 +1,68 @@
+//Returns all the stats for user specified pokemon
+SELECT name, id, abilities, attack, base_total, capture_rate, classfication, defense, hp,		sp_attack, sp_defense, speed, type1, type2, generation FROM pokemon WHERE name = user_pokemon;
+
+//Returns all the pokemon who have attacks equal to or greater than what the user specified
+SELECT * FROM pokemon WHERE attack >= user_attack;
+
+//Returns the first ten pokemon
+SELECT * FROM pokemon ORDER BY id ASC LIMIT 10;
+
+//Returns top 10 most popular pokemons
+SELECT * FROM pokemon 
+WHERE name = 'Arceus' 
+   or name = 'Mew' 
+   or name = 'Pikachu'
+   or name = 'Charizard'
+   or name = 'Rayquaza'
+   or name = 'Gengar'
+   or name = 'Mewtwo'
+   or name = 'Eevee'
+   or name = 'Lucario'
+   or name = 'Snorlax'
+ORDER BY id ASC;
+
+//Returns top 10 pokemons with highest attack
+SELECT * FROM pokemon ORDER BY attack DESC LIMIT 10;
+
+//Returns all legendary pokemons
+SELECT * FROM pokemon WHERE is_legendary = 1 ORDER BY id;
+
+//Returns Japanese name of pokemon given English name
+SELECT japanese_name FROM pokemon WHERE name = user_pokemon_name;
+
+//Returns all pokemon of specified type
+SELECT * FROM pokemon WHERE classification = user_type;
+
+//Search query
+Scanner scan = new Scanner(System.in);
+if (userChoice.isequalto("Name")):
+	String user_pokemon_input;
+	System.out.println("Enter name of pokemon: ");
+	user_pokemon_input = scan.nextLine();
+	poke_id = SELECT number FROM pokemon WHERE name = user_pokemon_input;
+	System.out.println(poke_id);
+	
+//Search for types
+else:
+	String type_1;
+	String type_2;
+	System.out.println("Enter type 1 of pokemon: ");
+	type_1 = scan.nextLine();
+	System.out.println("Enter type 2 of pokemon: ");
+	type_2 = scan.nextLine();
+	sql_query = "SELECT name, number AS pokemon_id FROM pokemon WHERE type_one = type_1 AND type_two = type_2";
+		
+//Search function through prepared statement:
+String search_name_sql = "SELECT number FROM pokemon WHERE name = ?";
+PreparedStatement stmt = con.prepareStatement(search_name_sql);  
+stmt.setString(1,user_pokemon_name);
+   
+String update_name = stmt.executeUpdate();  
+System.out.println(update_name);  
+
+
+//Small pokemons
+SELECT name, number FROM pokemon WHERE height < 0.7;
+
+//Tall pokemons
+SELECT name, number FROM pokemon WHERE height > 3.5;
